@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-2*0hh!k#83j+x&kxs#*lok5_z3sx*)ufhb6_7hjc%a30tqzc7&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["78716026-a6f7-40e2-8a2b-62be94f839c4.id.repl.co",]
+ALLOWED_HOSTS = ["78716026-a6f7-40e2-8a2b-62be94f839c4.id.repl.co",
+                "time-logger.niamhgowran.repl.co",]
 
 
 # Application definition

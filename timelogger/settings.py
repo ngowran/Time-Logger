@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-2*0hh!k#83j+x&kxs#*lok5_z3sx*)ufhb6_7hjc%a30tqzc7&
 DEBUG = True
 
 ALLOWED_HOSTS = ["78716026-a6f7-40e2-8a2b-62be94f839c4.id.repl.co",
-                "time-logger.niamhgowran.repl.co",]
+                "time-logger.niamhgowran.repl.co",
+                "time-logger-2.niamhgowran.repl.co",
+                "12c273ae-da35-4c0f-9bb5-e16a206027bd.id.repl.co"]
 
 
 # Application definition
@@ -77,12 +79,9 @@ WSGI_APPLICATION = 'timelogger.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 

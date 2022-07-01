@@ -3,6 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Container, Paper } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const style = {
   position: 'absolute',
@@ -26,13 +30,13 @@ export default function Issue() {
 
     const handleClick=(e)=>{
         e.preventDefault()
-        const time={name, time, reason}
-        console.log(issue)
-        fetch("http://localhost:8000/time/add",
+        const timelog={name, time, reason}
+        console.log(timelog)
+        fetch("https://time-logger-2.niamhgowran.repl.co/api",
         {
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(issue)
+            body:JSON.stringify(timelog)
         }).then(() => {
             alert("New time logged.")
         })
@@ -60,19 +64,35 @@ export default function Issue() {
       m={5} pt={2} pb={2}
     >
       <h3>Log Time</h3>
-      <TextField id="outlined-basic" label="Name" variant="outlined"
+      <TextField required id="outlined-basic" label="Initials" variant="outlined"
       value={name}
       onChange={(e)=>setName(e.target.value)}
     />
-      <TextField id="outlined-basic" label="Time" variant="outlined"
+      <TextField required id="outlined-basic" label="Time in minutes" variant="outlined"
       value={time}
       onChange={(e)=>setTime(e.target.value)}/>
-      <TextField id="outlined-basic" label="Reason" variant="outlined"
+
+      <InputLabel id="outlined-basic" label="Activity" variant="outlined"
       value={reason}
-      onChange={(e)=>setReason(e.target.value)}/>
-      <Button variant="contained" color="secondary" onClick={handleClick}>
+      onChange={(e)=>setTime(e.target.value)}/>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={reason}
+          label="Age"
+          onChange={(e)=>setReason(e.target.value)}
+        >
+          <MenuItem value={"Meeting"}>Meeting</MenuItem>
+          <MenuItem value={"Research"}>Research</MenuItem>
+          <MenuItem value={"Development"}>Development</MenuItem>
+          <MenuItem value={"Event"}>Event</MenuItem>
+        </Select>
+
+
+      <Button sx={{m:1}} variant="contained" color="secondary" onClick={handleClick}>
         Submit
       </Button>
+
     </Box>
     </Paper>
     

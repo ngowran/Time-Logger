@@ -28,7 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = ["78716026-a6f7-40e2-8a2b-62be94f839c4.id.repl.co",
                 "time-logger.niamhgowran.repl.co",
                 "time-logger-2.niamhgowran.repl.co",
-                "12c273ae-da35-4c0f-9bb5-e16a206027bd.id.repl.co"]
+                "12c273ae-da35-4c0f-9bb5-e16a206027bd.id.repl.co",
+                "localhost:8000",
+                "localhost"]
 
 
 # Application definition
@@ -40,16 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',    
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'timelogger.urls'
@@ -84,6 +90,8 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Password validation

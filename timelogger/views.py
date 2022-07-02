@@ -60,4 +60,5 @@ class Time(APIView):
     for log in logs.each():
       print(log.val())
       array.append(log.val())
-    return Response(array)
+    array = array[::-1]
+    return Response(array[0:6])

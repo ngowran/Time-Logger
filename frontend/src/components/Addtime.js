@@ -29,6 +29,7 @@ export default function Issue() {
     const handleClose = () => setOpen(false);
 
     const handleClick=(e)=>{
+      if ({name, time, reason}) {
         e.preventDefault()
         const timelog={name, time, reason}
         console.log(timelog)
@@ -38,9 +39,14 @@ export default function Issue() {
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(timelog)
         }).then(() => {
+            handleClose();
             alert("New time logged.")
         })
-    }
+    } else {
+        alert("Sorry, something went wrong!")
+    }      
+      }
+
 
 
   return (
@@ -72,7 +78,7 @@ export default function Issue() {
       value={time}
       onChange={(e)=>setTime(e.target.value)}/>
 
-      <InputLabel id="outlined-basic" label="Activity" variant="outlined"
+      <InputLabel required id="outlined-basic" label="Activity" variant="outlined"
       value={reason}
       onChange={(e)=>setTime(e.target.value)}/>
         <Select

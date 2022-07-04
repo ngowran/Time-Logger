@@ -21,6 +21,18 @@ function randomColor() {
 
 export default function Tables() {
     const[timeLogs, setLogs]= useState([])
+    const[total, setTotal]= useState("")
+
+    function getTotal() {
+        axios
+        .get('https://time-logger-2.niamhgowran.repl.co/total')
+        .then(res => {
+            setTotal(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }    
 
     function getLogs() {
         axios
@@ -35,9 +47,11 @@ export default function Tables() {
 
         useEffect(() => {
             getLogs();
+            getTotal();
             const interval = setInterval(() => {
                 getLogs();
-            }, 30000);
+                getTotal();
+            }, 10000);
             return () => clearInterval(interval);
           }, []);
 
@@ -52,6 +66,7 @@ export default function Tables() {
         alignContent: 'center',
     }}>
        <Box m={2} pt={2}>
+    <h1>{total}</h1>
     <h2>Times Logged</h2>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -76,7 +91,7 @@ export default function Tables() {
               </TableCell>
               <TableCell align="right">
               <Tooltip title={val.name}>
-              <Avatar style={{backgroundColor: randomColor() }}alt={val.name} src={ images[`${val.name}`]}>{val.name}</Avatar>
+              <Avatar style={{backgroundColor: randomColor()}}alt={val.name} src={ images[`${val.name}`]}>{val.name}</Avatar>
               </Tooltip>
               </TableCell>
               <TableCell align="right">{val.reason}</TableCell>

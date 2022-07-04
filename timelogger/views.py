@@ -30,16 +30,15 @@ firebase= pyrebase.initialize_app(config)
 authe = firebase.auth()
 database=firebase.database()
 
-now = datetime.now()
-current_date = now.strftime("%d:%m:%Y")
-current_time = now.strftime("%H:%M:%S")
-
 class Time(APIView):
   def post(self, request, *args, **kwargs):
         name = request.data.get('name')
         name = name.upper()
         time = request.data.get('time')
         reason = request.data.get('reason')
+        now = datetime.now()
+        current_date = now.strftime("%d:%m:%Y")
+        current_time = now.strftime("%H:%M:%S")
         try:
           # const timelog={name, time, reason}
           data = {
@@ -58,7 +57,17 @@ class Time(APIView):
     logs = database.child('timelogger').get()
     array = []
     for log in logs.each():
-      print(log.val())
       array.append(log.val())
     array = array[::-1]
     return Response(array[0:6])
+
+class Total(APIView):
+  def get(self, request, *args, **kwargs):
+    logs = database.child('timelogger').get()
+    array = []
+    for log in logs.each():
+      array.append(int(log.val()["time"]))
+    total = sum(array)
+    hours = total // 60
+    minutes = total % 60
+    return Response(f"Total time: {hours} hours {minutes} minutes")

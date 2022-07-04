@@ -17,12 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 from .views import (
-    Time,
+    Time, Total
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name="index.html")),
-    path('api', Time.as_view())
+    path('api', Time.as_view()),
+    path('total', Total.as_view()),
     
 ]

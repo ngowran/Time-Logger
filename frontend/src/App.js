@@ -15,9 +15,9 @@ function App() {
     <div className="App">
       <header>
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        <h1>
           Welcome to Enactus DCU Time Logger.
-        </p>
+        </h1>
       </header>
       <Addtime/>
       <Tables/>

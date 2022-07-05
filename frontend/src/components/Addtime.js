@@ -67,7 +67,7 @@ export default function Issue() {
       }
       noValidate
       autoComplete="off"
-      m={5} pt={2} pb={2}
+      m={5} pt={3} pb={2}
     >
       <h3>Log Time</h3>
       <TextField required id="outlined-basic" label="Initials" variant="outlined"

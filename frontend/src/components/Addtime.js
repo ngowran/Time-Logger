@@ -7,6 +7,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 const style = {
   position: 'absolute',
@@ -24,12 +26,12 @@ export default function Issue() {
     const[time, setTime]= useState('')
     const[reason, setReason]= useState('')
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleClick=(e)=>{
-      if ({name, time, reason}) {
+      if (!!name && !!time && !!reason) {
         e.preventDefault()
         const timelog={name, time, reason}
         console.log(timelog)
@@ -43,7 +45,7 @@ export default function Issue() {
             alert("New time logged.")
         })
     } else {
-        alert("Sorry, something went wrong!")
+        alert("Missing required fields!")
     }      
       }
 

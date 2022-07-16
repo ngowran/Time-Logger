@@ -39,18 +39,21 @@ class Time(APIView):
         now = datetime.now()
         current_date = now.strftime("%d:%m:%Y")
         current_time = now.strftime("%H:%M:%S")
-        try:
-          # const timelog={name, time, reason}
-          data = {
-            "name":name,
-            "time":time,
-            "reason":reason,
-            "date":current_date,
-            "hour":current_time
-          }
-          results = database.child("timelogger").push(data)
-          return HttpResponse(200, "Time Added")
-        except:
+        if len(name) > 0 and len(name) <= 3 and len(reason) > 0 and len(time) > 0:
+          try:
+            # const timelog={name, time, reason}
+            data = {
+              "name":name,
+              "time":time,
+              "reason":reason,
+              "date":current_date,
+              "hour":current_time
+            }
+            results = database.child("timelogger").push(data)
+            return HttpResponse(200, "Time Added")
+          except:
+            return HttpResponse(404, "Something went wrong.")
+        else:
           return HttpResponse(404, "Something went wrong.")
 
   def get(self, request, *args, **kwargs):

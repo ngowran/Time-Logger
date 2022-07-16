@@ -51,7 +51,7 @@ export default function Tables() {
             const interval = setInterval(() => {
                 getLogs();
                 getTotal();
-            }, 10000);
+            }, 5000);
             return () => clearInterval(interval);
           }, []);
 
@@ -67,7 +67,7 @@ export default function Tables() {
     }}>
        <Box m={2} pt={2}>
     <h1>{total}</h1>
-    <h2>Times Logged</h2>
+    <h2>Times Recently Logged</h2>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 400 }} aria-label="simple table">
         <TableHead sx={{backgroundColor: '#f6bd33'}}>

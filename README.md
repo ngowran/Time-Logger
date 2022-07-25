@@ -3,8 +3,8 @@
 * Used to log activity time for projects.
 
 ## To run:
-* Do pip3 install -r requirements.txt from root
-* Do npm install from frontend directory
+* Do `pip3 install -r requirements.txt` from root
+* Do `npm install` from frontend directory
 
 ## Contributors 
 Kevin Tomescu and Niamh Gowran

@@ -62,7 +62,7 @@ const ResponsiveAppBar = () => {
   }
 
   return (
-    <AppBar style={{ background: "#B2D3AB"}} position="static">
+    <AppBar style={{ background: "#5A87C5" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton
@@ -78,7 +78,7 @@ const ResponsiveAppBar = () => {
             height: 64,
               
             }}
-            alt="Renu Logo."
+            alt="Enactus Logo."
             src={Renu}
         />
           </IconButton>
@@ -152,7 +152,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            ReNu
+            Enactus DCU
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

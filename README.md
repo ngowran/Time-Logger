@@ -7,7 +7,7 @@
 * Do `npm install` from frontend directory
 
 ### Generates the following screen:
-![alt text](https://i.imgur.com/rzXwKcP.png)
+![alt text](https://i.imgur.com/NAmbbOR.png)
 
 ## Contributors 
 Kevin Tomescu and Niamh Gowran

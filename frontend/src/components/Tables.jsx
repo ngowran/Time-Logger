@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Avatar from '@mui/material/Avatar';
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import images from '../assets/avatars';
+import { UserAuth } from '../hocs/Auth';
 
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xFFFFFF);
@@ -22,10 +23,11 @@ function randomColor() {
 export default function Tables() {
     const[timeLogs, setLogs]= useState([])
     const[total, setTotal]= useState("")
+    const {user} = UserAuth();
 
     function getTotal() {
         axios
-        .get('https://time-logger-2.niamhgowran.repl.co/total')
+        .get('/total')
         .then(res => {
             setTotal(res.data)
         })
@@ -36,7 +38,7 @@ export default function Tables() {
 
     function getLogs() {
         axios
-        .get('https://time-logger-2.niamhgowran.repl.co/api')
+        .get('/api')
         .then(res => {
             setLogs(res.data)
         })
@@ -91,7 +93,7 @@ export default function Tables() {
               </TableCell>
               <TableCell align="right">
               <Tooltip title={val.name}>
-              <Avatar style={{backgroundColor: randomColor()}}alt={val.name} src={ images[`${val.name}`]}>{val.name}</Avatar>
+              <Avatar style={{backgroundColor: randomColor()}}alt={val.name} src={val.photoURL}>{val.name}</Avatar>
               </Tooltip>
               </TableCell>
               <TableCell align="right">{val.reason}</TableCell>

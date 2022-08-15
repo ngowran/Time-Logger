@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import { UserAuth } from '../hocs/Auth';
 
 const style = {
   position: 'absolute',
@@ -22,30 +23,32 @@ const style = {
 };
 
 export default function Issue() {
-    const[name, setName]= useState('')
     const[time, setTime]= useState('')
     const[reason, setReason]= useState('')
-
+    const {user} = UserAuth();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleClick=(e)=>{
-      if (!!name && !!time && !!reason) {
+      const name = user.displayName;
+      const photoURL = user.photoURL;
+      if (!!time && !!reason) {
         e.preventDefault()
-        const timelog={name, time, reason}
+        const timelog={name, time, reason, photoURL}
         console.log(timelog)
-        fetch("https://time-logger-2.niamhgowran.repl.co/api",
+        fetch("/api",
         {
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(timelog)
-        }).then(() => {
+        }).then((res) => {
             handleClose();
-            alert("New time logged.")
+            console.log(res.data);
+            alert("New time logged.");
         })
     } else {
-        alert("Missing required fields!")
+        alert("Missing required fields!");
     }      
       }
 
@@ -53,6 +56,7 @@ export default function Issue() {
 
   return (
     <Container>
+      {user && <>
       <Button variant="contained" size="small" onClick={handleOpen}>Add</Button>
       <Modal
         open={open}
@@ -72,10 +76,6 @@ export default function Issue() {
       m={5} pt={3} pb={2}
     >
       <h3>Log Time</h3>
-      <TextField required id="outlined-basic" label="Initials" variant="outlined"
-      value={name}
-      onChange={(e)=>setName(e.target.value)}
-    />
       <TextField required id="outlined-basic" label="Time in minutes" variant="outlined"
       value={time}
       onChange={(e)=>setTime(e.target.value)}/>
@@ -103,7 +103,10 @@ export default function Issue() {
 
     </Box>
     </Paper>
-    
     </Modal>
+    </>}
+    {!user && <>
+    You must be signed in to add a time.
+    </>}
     </Container>
 )}

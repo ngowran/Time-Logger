@@ -33,13 +33,13 @@ database=firebase.database()
 class Time(APIView):
   def post(self, request, *args, **kwargs):
         name = request.data.get('name')
-        name = name.upper()
+        photoURL = request.data.get('photoURL')
         time = request.data.get('time')
         reason = request.data.get('reason')
         now = datetime.now()
         current_date = now.strftime("%d:%m:%Y")
         current_time = now.strftime("%H:%M:%S")
-        if len(name) > 0 and len(name) <= 3 and len(reason) > 0 and len(time) > 0:
+        if name and len(reason) > 0 and len(time) > 0:
           try:
             # const timelog={name, time, reason}
             data = {
@@ -47,14 +47,16 @@ class Time(APIView):
               "time":time,
               "reason":reason,
               "date":current_date,
-              "hour":current_time
+              "hour":current_time,
+              "from":"website",
+              "photoURL":photoURL
             }
             results = database.child("timelogger").push(data)
-            return HttpResponse(200, "Time Added")
+            return Response("Time Added")
           except:
-            return HttpResponse(404, "Something went wrong.")
+            return Response("Something went wrong.")
         else:
-          return HttpResponse(404, "Something went wrong.")
+          return Response("Something went wrong.")
 
   def get(self, request, *args, **kwargs):
     logs = database.child('timelogger').get()

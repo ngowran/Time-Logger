@@ -33,7 +33,7 @@ export default function Issue() {
     const handleClick=(e)=>{
       const name = user.displayName;
       const photoURL = user.photoURL;
-      if (!!time && !!reason) {
+      if (!!time && !!reason && typeof time === "number") {
         e.preventDefault()
         const timelog={name, time, reason, photoURL}
         console.log(timelog)
@@ -48,8 +48,8 @@ export default function Issue() {
             alert("New time logged.");
         })
     } else {
-        alert("Missing required fields!");
-    }      
+        alert("Missing required fields or input is wrong!");
+    }
       }
 
 
@@ -65,7 +65,7 @@ export default function Issue() {
         aria-describedby="modal-modal-description"
       >
         <Paper elevation={12}>
-        
+
     <Box
       component="form"
       sx={

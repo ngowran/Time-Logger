@@ -33,7 +33,7 @@ export default function Issue() {
     const handleClick=(e)=>{
       const name = user.displayName;
       const photoURL = user.photoURL;
-      if (!!time && !!reason && !isNaN(+time)) {
+      if (!!time && !!reason && !isNaN(+time) && time.length <= 3) {
         e.preventDefault()
         const timelog={name, time, reason, photoURL}
         console.log(timelog)

@@ -1,12 +1,13 @@
 import React, {useEffect, useState, createContext, useContext} from 'react';
 import app, { firebase, myFS } from '../firebase-config';
-import { 
+import {
   getAuth,
-  GoogleAuthProvider, 
-  onAuthStateChanged, 
-  signInWithEmailAndPassword, 
-  signOut, 
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
   createUserWithEmailAndPassword,
+  signInWithRedirect,
   updateProfile,
   signInWithPopup} from "firebase/auth";
 import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -42,25 +43,24 @@ export const AuthProvider = ({ children }) => {
 
     const googleSignIn = () => {
       const provider = new GoogleAuthProvider();
-      signInWithPopup(firebase, provider);
-    }
+      signInWithRedirect(firebase, provider);
+    };
 
     useEffect(() => {
         if (firebase) {
           const unsubscribe = onAuthStateChanged(firebase, (currentUser) => {
             // if user is null, then we force them to login
             console.log('onAuthStateChanged(): got user', currentUser.email);
-            console.log(currentUser)
             setUser(currentUser);
           });
-    
-          return () => { 
+
+          return () => {
             unsubscribe();
           }
         }
       }, [firebase]);
 
-  
+
 
     return (
         <AuthContext.Provider value = {{ googleSignIn, signIn, logout, user, createUser, updateDisplayName}}>
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
 
     const snapshot = await uploadBytes(fileRef, file);
-    
+
     const photoURL = await getDownloadURL(fileRef);
 
     updateProfile(user, {photoURL});

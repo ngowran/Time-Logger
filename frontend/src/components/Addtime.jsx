@@ -25,7 +25,7 @@ const style = {
 export default function Issue() {
     const[time, setTime]= useState('')
     const[reason, setReason]= useState('')
-    const {user} = UserAuth();
+    const {user, googleSignIn} = UserAuth();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -52,6 +52,15 @@ export default function Issue() {
     }
       }
 
+      const handleGoogleSignIn = async (e) => {
+        e.preventDefault();
+        try {
+          await googleSignIn();
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
 
 
   return (
@@ -75,7 +84,7 @@ export default function Issue() {
       autoComplete="off"
       m={5} pt={3} pb={2}
     >
-      <h3>Log Time</h3>
+      <h3 className="font-bold py-3">Log Time</h3>
       <TextField required id="outlined-basic" label="Time in minutes" variant="outlined"
       value={time}
       onChange={(e)=>setTime(e.target.value)}/>
@@ -106,7 +115,10 @@ export default function Issue() {
     </Modal>
     </>}
     {!user && <>
-    You must be signed in to add a time.
+    <p>You must be signed in to add a time.</p>
+    <Button sx={{m:1}} variant="contained" color="secondary" onClick={handleGoogleSignIn}>
+        Sign In
+      </Button>
     </>}
     </Container>
 )}

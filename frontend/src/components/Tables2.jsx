@@ -7,14 +7,13 @@ import axios from "axios";
 import { Avatar } from "@mui/material";
 
 const columns = [
-  { field: "date", headerName: "Date", width: 150 },
+  { field: "date", headerName: "Date", width: 150, sortable: false, headerClassName: 'bg-amber-400',},
   {
     field: "name",
     headerName: "Name",
+    headerClassName: 'bg-amber-400',
     width: 150,
-    sortable: false,
     renderCell: (params) => {
-        console.log(params);
         return (
           <>
             <Tooltip title={params.row.name}>
@@ -29,12 +28,14 @@ const columns = [
   {
     field: "reason",
     headerName: "Reason",
+    headerClassName: 'bg-amber-400',
     width: 150,
     editable: true,
   },
   {
     field: "time",
     headerName: "Time Spent",
+    headerClassName: 'bg-amber-400',
     type: "number",
     width: 110,
     editable: true,
@@ -42,14 +43,17 @@ const columns = [
   {
     field: "hour",
     headerName: "Finished At",
+    headerClassName: 'bg-amber-400',
     sortable: false,
     width: 160,
   },
 ];
 
-export default function DataGridDemo() {
+export default function DataGridTable() {
   const [rows, setRows] = useState([]);
   const [total, setTotal] = useState("");
+
+  const [pageSize, setPageSize] = useState(5);
 
   function getTotal() {
     axios
@@ -67,7 +71,6 @@ export default function DataGridDemo() {
       .get("/api")
       .then((res) => {
         setRows(res.data);
-        console.log(rows.length)
       })
       .catch((err) => {
         console.log(err);
@@ -85,18 +88,27 @@ export default function DataGridDemo() {
   }, []);
 
   return (
-    <div className="w-auto" style={{ height: 400}}>
+    <div className="justify-center items-center mx-auto py-10 w-[75%] md:w-[45%]">
       <h1 className="text-3xl font-bold py-3">{total}</h1>
       <div style={{ display: 'flex', height: '100%' }}>
         <div style={{ flexGrow: 1 }}>
 
       <DataGrid
+        autoHeight
         rows={rows}
         getRowId={() => Math.floor(Math.random() * 100000000)}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
+        pageSize={pageSize}
+        rowsPerPageOptions={[5, 10, 15]}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        sx={{
+          boxShadow: 2,
+          border: 0,
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        className="bg-white"
         disableSelectionOnClick
       />
     </div>
@@ -104,3 +116,4 @@ export default function DataGridDemo() {
     </div>
   );
 }
+  	

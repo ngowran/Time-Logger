@@ -19,7 +19,7 @@ function App() {
         <ResponsiveAppBar />
         <header className="items-center justify-center content-center">
           <div>
-            <h1 className="text-3xl font-bold text-stone-800 tracking-wider">
+            <h1 className="text-3xl font-bold text-stone-800 tracking-wider py-20">
               Welcome to Enactus DCU Time Logger.
             </h1>
           </div>

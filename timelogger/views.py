@@ -64,7 +64,7 @@ class Time(APIView):
     for log in logs.each():
       array.append(log.val())
     array = array[::-1]
-    return Response(array[0:6])
+    return Response(array)
 
 class Total(APIView):
   def get(self, request, *args, **kwargs):

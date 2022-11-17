@@ -41,9 +41,9 @@ export const AuthProvider = ({ children }) => {
       return signInWithEmailAndPassword(firebase, email, password)
     }
 
-    const googleSignIn = () => {
+    const googleSignIn = async () => {
       const provider = new GoogleAuthProvider();
-      signInWithRedirect(firebase, provider);
+      await signInWithPopup(firebase, provider);
     };
 
     useEffect(() => {

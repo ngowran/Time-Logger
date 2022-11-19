@@ -147,12 +147,20 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="login" onClick={handleCloseUserMenu} >
-              <Typography textAlign="center" onClick={handleGoogleSignIn}>Login</Typography>
-              </MenuItem>
-              <MenuItem key="logout" onClick={handleCloseUserMenu} >
-              <Typography textAlign="center" onClick={handleLogout}>Logout</Typography>
-              </MenuItem>
+              {user ? (
+  <MenuItem key="logout" onClick={handleCloseUserMenu}>
+    <Typography textAlign="center" onClick={handleLogout}>
+      Logout
+    </Typography>
+  </MenuItem>
+) : (
+  <MenuItem key="login" onClick={handleCloseUserMenu}>
+    <Typography textAlign="center" onClick={handleGoogleSignIn}>
+      Login
+    </Typography>
+  </MenuItem>
+)}
+              
             </Menu>
             </Box>
         </Toolbar>

@@ -66,7 +66,7 @@ export default function Issue() {
   return (
     <Container>
       {user && <>
-      <Button variant="contained" size="small" onClick={handleOpen}>Add</Button>
+      <Button variant="contained" size="small" onClick={handleOpen}>Log Time</Button>
       <Modal
         open={open}
         onClose={handleClose}

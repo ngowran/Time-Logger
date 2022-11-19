@@ -21,8 +21,8 @@ function randomColor() {
 
 
 export default function Tables() {
-    const[timeLogs, setLogs]= useState([])
-    const[total, setTotal]= useState("")
+    const[timeLogs, setLogs]= useState([]);
+    const[total, setTotal]= useState("");
     const {user} = UserAuth();
 
     function getTotal() {

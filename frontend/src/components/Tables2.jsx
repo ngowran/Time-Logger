@@ -45,7 +45,7 @@ const columns = [
     headerName: "Time Spent",
     headerClassName: "bg-amber-400",
     type: "number",
-    flex: 1,
+    flex: 0.5,
     width: 110,
     editable: true,
   },
@@ -54,7 +54,7 @@ const columns = [
     headerName: "Finished At",
     headerClassName: "bg-amber-400",
     sortable: false,
-    flex: 0.5,
+    flex: 1,
     width: 160,
   },
 ];

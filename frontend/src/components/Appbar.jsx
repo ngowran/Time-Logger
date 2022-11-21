@@ -83,7 +83,7 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             sx={{
-              mr: 4,
+              mr: 1,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
@@ -99,7 +99,7 @@ const ResponsiveAppBar = () => {
             variant="h5"
             noWrap
             sx={{
-              mr: 4,
+              mr: 1,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontFamily: "monospace",

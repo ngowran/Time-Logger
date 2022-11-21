@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
     const googleSignIn = async () => {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(firebase, provider);
+      await signInWithRedirect(firebase, provider);
     };
 
     useEffect(() => {

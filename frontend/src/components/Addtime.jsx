@@ -27,13 +27,15 @@ export default function Issue() {
     const[reason, setReason]= useState('')
     const {user, googleSignIn} = UserAuth();
     const [open, setOpen] = useState(false);
+    const [aOpen, setaOpen] = useState(false);
+    const [eOpen, setEOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleClick=(e)=>{
       const name = user.displayName;
       const photoURL = user.photoURL;
-      if (!!time && !!reason && !isNaN(+time) && time.length <= 3) {
+      if (!!time && !!reason && !isNaN(+time) && time.length <= 3 && time > 0) {
         e.preventDefault()
         const timelog={name, time, reason, photoURL}
         console.log(timelog)
@@ -44,11 +46,11 @@ export default function Issue() {
             body:JSON.stringify(timelog)
         }).then((res) => {
             handleClose();
-            console.log(res.data);
-            alert("New time logged.");
+            alert(`${time} minutes successfully logged!`)
         })
     } else {
-        alert("Missing required fields or input is wrong!");
+        alert("Error! Incorrect input or something went wrong.");
+        handleClose();
     }
       }
 
@@ -65,6 +67,12 @@ export default function Issue() {
 
   return (
     <Container>
+      {aOpen && <>
+      <Alert severity="success" onClose={() => {setaOpen(false);}}>Time successfully logged!</Alert>
+      </>}
+      {eOpen && <>
+      <Alert severity="error" onClose={() => {setEOpen(false);}}>Input field incorrect or something went wrong!</Alert>
+      </>}
       {user && <>
       <Button variant="contained" size="small" onClick={handleOpen}>Log Time</Button>
       <Modal
@@ -115,7 +123,7 @@ export default function Issue() {
     </Modal>
     </>}
     {!user && <>
-    <p>You must be signed in to add a time.</p>
+    <p className='pb-2'>You must be signed in to add a time.</p>
     <Button sx={{m:1}} variant="contained" color="secondary" onClick={handleGoogleSignIn}>
         Sign In
       </Button>

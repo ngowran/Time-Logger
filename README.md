@@ -43,7 +43,7 @@ npm run build
 
 ### Generates the following screen:
 
-![alt text](https://i.imgur.com/NAmbbOR.png)
+![alt text](https://i.imgur.com/EWWKDRo.png)
 
 ## Contributors
 

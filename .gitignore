@@ -1,3 +1,7 @@
 /.vscode
 /env
 /venv
+/timelogger/__pycache__
+/timelogger/__pycache__/
+/.env
+

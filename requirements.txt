@@ -2,3 +2,5 @@ Django
 pyrebase4
 django-cors-headers
 djangorestframework
+python-dotenv
+mysqlclient

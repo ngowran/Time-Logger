@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Avatar } from "@mui/material";
+import BarChart from "../charts/LineChart";
 
 const columns = [
   {
@@ -63,6 +64,26 @@ export default function DataGridTable() {
   const [rows, setRows] = useState([]);
   const [total, setTotal] = useState("");
 
+  const reasons = {};
+  rows.forEach((d) => {
+    if (!reasons[d.reason]) reasons[d.reason] = 0;
+    reasons[d.reason] += parseInt(d.time);
+  });
+
+  console.log(Object.values(reasons));
+
+  const chartData = {
+    labels: Object.keys(reasons),
+    datasets: [
+      {
+        label: "Minutes Spent",
+        data: Object.values(reasons),
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
   const [pageSize, setPageSize] = useState(5);
 
   function getTotal() {
@@ -99,6 +120,7 @@ export default function DataGridTable() {
 
   return (
     <div className="justify-center items-center mx-auto py-10 w-[75%] md:w-[50%]">
+      <BarChart chartData={chartData} />
       <h1 className="text-2xl md:text-3xl font-bold py-3">{total}</h1>
       <div style={{ display: "flex", height: "100%" }}>
         <div style={{ flexGrow: 1 }}>

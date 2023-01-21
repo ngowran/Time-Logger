@@ -14,24 +14,28 @@ from django.conf import settings
 from datetime import datetime
 import pyrebase
 import os
+from dotenv import load_dotenv
 
-config={
-  "apiKey": "AIzaSyCRLXur7Aruh_EADjxKRsWtA-HY0P-G_ao",
-  "authDomain": "renu-22cf0.firebaseapp.com",
-  "databaseURL": "https://renu-22cf0-default-rtdb.europe-west1.firebasedatabase.app",
-  "projectId": "renu-22cf0",
-  "storageBucket": "renu-22cf0.appspot.com",
-  "messagingSenderId": "478924071511",
-  "appId": "1:478924071511:web:d5cd8a215a9cd724bb7912",
-  "measurementId": "G-F0J0XM9SJQ"
+load_dotenv()
+
+config = {
+    "apiKey": os.getenv("API_KEY"),
+    "authDomain": os.getenv("AUTH_DOMAIN"),
+    "databaseURL": os.getenv("DATABASE_URL"),
+    "projectId": os.getenv("PROJECT_ID"),
+    "storageBucket": os.getenv("STORAGE_BUCKET"),
+    "messagingSenderId": os.getenv("MESSAGING_SENDER_ID"),
+    "appId": os.getenv("APP_ID"),
+    "measurementId": os.getenv("MEASUREMENT_ID")
 }
 
-firebase= pyrebase.initialize_app(config)
+firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
-database=firebase.database()
+database = firebase.database()
+
 
 class Time(APIView):
-  def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         name = request.data.get('name')
         photoURL = request.data.get('photoURL')
         time = request.data.get('time')
@@ -40,39 +44,40 @@ class Time(APIView):
         current_date = now.strftime("%d:%m:%Y")
         current_time = now.strftime("%H:%M:%S")
         if name and len(reason) > 0 and len(time) > 0:
-          try:
-            # const timelog={name, time, reason}
-            data = {
-              "name":name,
-              "time":time,
-              "reason":reason,
-              "date":current_date,
-              "hour":current_time,
-              "from":"website",
-              "photoURL":photoURL
-            }
-            results = database.child("timelogger").push(data)
-            return Response("Time Added")
-          except:
-            return Response("Something went wrong.")
+            try:
+                # const timelog={name, time, reason}
+                data = {
+                    "name": name,
+                    "time": time,
+                    "reason": reason,
+                    "date": current_date,
+                    "hour": current_time,
+                    "from": "website",
+                    "photoURL": photoURL
+                }
+                results = database.child("timelogger").push(data)
+                return Response("Time Added")
+            except:
+                return Response("Something went wrong.")
         else:
-          return Response("Something went wrong.")
+            return Response("Something went wrong.")
 
-  def get(self, request, *args, **kwargs):
-    logs = database.child('timelogger').get()
-    array = []
-    for log in logs.each():
-      array.append(log.val())
-    array = array[::-1]
-    return Response(array)
+    def get(self, request, *args, **kwargs):
+        logs = database.child('timelogger').get()
+        array = []
+        for log in logs.each():
+            array.append(log.val())
+        array = array[::-1]
+        return Response(array)
+
 
 class Total(APIView):
-  def get(self, request, *args, **kwargs):
-    logs = database.child('timelogger').get()
-    array = []
-    for log in logs.each():
-      array.append(int(log.val()["time"]))
-    total = sum(array)
-    hours = total // 60
-    minutes = total % 60
-    return Response(f"Total time: {hours} hours {minutes} minutes")
+    def get(self, request, *args, **kwargs):
+        logs = database.child('timelogger').get()
+        array = []
+        for log in logs.each():
+            array.append(int(log.val()["time"]))
+        total = sum(array)
+        hours = total // 60
+        minutes = total % 60
+        return Response(f"Total time: {hours} hours {minutes} minutes")

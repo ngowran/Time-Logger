@@ -67,14 +67,15 @@ export default function DataGridTable() {
   const reasons = {};
   rows.forEach((d) => {
     if (!reasons[d.reason]) reasons[d.reason] = 0;
-    reasons[d.reason] += parseInt(d.time);
+    // convert d.time to hours and add to reasons[d.reason]
+    reasons[d.reason] += d.time / 60;
   });
 
   const chartData = {
     labels: Object.keys(reasons),
     datasets: [
       {
-        label: "Minutes Spent",
+        label: "Hours Spent",
         data: Object.values(reasons),
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderWidth: 1,
@@ -118,7 +119,6 @@ export default function DataGridTable() {
 
   return (
     <div className="justify-center items-center mx-auto py-10 w-[75%] md:w-[50%]">
-      <BarChart chartData={chartData} />
       <h1 className="text-2xl md:text-3xl font-bold py-3">{total}</h1>
       <div style={{ display: "flex", height: "100%" }}>
         <div style={{ flexGrow: 1 }}>
@@ -141,6 +141,9 @@ export default function DataGridTable() {
             disableSelectionOnClick
           />
         </div>
+      </div>
+      <div className="mt-10 lg:mt-64">
+        <BarChart chartData={chartData} />
       </div>
     </div>
   );

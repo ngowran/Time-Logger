@@ -70,8 +70,6 @@ export default function DataGridTable() {
     reasons[d.reason] += parseInt(d.time);
   });
 
-  console.log(Object.values(reasons));
-
   const chartData = {
     labels: Object.keys(reasons),
     datasets: [

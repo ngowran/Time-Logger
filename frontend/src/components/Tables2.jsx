@@ -66,6 +66,9 @@ export default function DataGridTable() {
 
   const reasons = {};
   rows.forEach((d) => {
+    // if the reason == "Work" dont add it
+    if (d.reason === "Work") return;
+
     if (!reasons[d.reason]) reasons[d.reason] = 0;
     // convert d.time to hours and add to reasons[d.reason]
     reasons[d.reason] += d.time / 60;

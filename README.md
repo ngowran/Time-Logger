@@ -2,6 +2,8 @@
 
 Timelogger is a full-stack web application designed to assist in the logging of activity time for projects. It features a React frontend, a Django backend, and a Firebase real-time database for seamless data management.
 
+This application was primarily designed for use in college societies and volunteer work in Ireland, particularly the Enactus DCU society, however, for personal use, references to 'Enactus DCU' can and should be removed.
+
 ## Features
 
 - Sign in using Google SSO

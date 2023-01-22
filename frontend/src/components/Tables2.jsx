@@ -121,7 +121,7 @@ export default function DataGridTable() {
   }, []);
 
   return (
-    <div className="justify-center items-center mx-auto py-10 w-[75%] md:w-[50%]">
+    <div className="justify-center items-center mx-auto py-10 w-[99%] md:w-[50%]">
       <h1 className="text-2xl md:text-3xl font-bold py-3">{total}</h1>
       <div style={{ display: "flex", height: "100%" }}>
         <div style={{ flexGrow: 1 }}>

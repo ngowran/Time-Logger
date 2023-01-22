@@ -80,4 +80,4 @@ class Total(APIView):
         total = sum(array)
         hours = total // 60
         minutes = total % 60
-        return Response(f"Total time: {hours} hours {minutes} minutes")
+        return Response(f"{hours} hours {minutes} minutes")

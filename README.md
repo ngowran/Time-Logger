@@ -10,6 +10,7 @@ This application was primarily designed for use in college societies and volunte
 - Log time spent in minutes for a variety of reasons from a dropdown
 - Shows a table of all times, using pagination, filtration and sorting
 - Shows a total of hours spent
+- Shows a bar chart breakdown of hours and their types
 
 ## Getting Started
 

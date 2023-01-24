@@ -5,7 +5,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Avatar } from "@mui/material";
-import BarChart from "../charts/LineChart";
+import BarChart from "../charts/BarChart";
+import PieChart from "../charts/PieChart";
+import LineChart from "../charts/LineChart";
 
 const columns = [
   {
@@ -74,6 +76,7 @@ export default function DataGridTable() {
     reasons[d.reason] += d.time / 60;
   });
 
+
   const chartData = {
     labels: Object.keys(reasons),
     datasets: [
@@ -85,6 +88,82 @@ export default function DataGridTable() {
       },
     ],
   };
+
+  // make a reasons version to be a percentage of total hours
+  const reasons2 = {};
+  rows.forEach((d) => {
+    // if the reason == "Work" dont add it
+    if (d.reason === "Work") return;
+
+    if (!reasons2[d.reason]) reasons2[d.reason] = 0;
+    // convert d.time to hours and add to reasons[d.reason]
+    reasons2[d.reason] += d.time / 60;
+  });
+  
+
+  // rewrite chartData to have a different color for each reason
+   const chartData2 = {
+     labels: Object.keys(reasons),
+     datasets: [
+       {
+         label: "Hours Spent",
+         data: Object.values(reasons),
+         backgroundColor: [
+           "rgba(255, 99, 132, 0.2)",
+           "rgba(54, 162, 235, 0.2)",
+           "rgba(255, 206, 86, 0.2)",
+           "rgba(75, 192, 192, 0.2)",
+           "rgba(153, 102, 255, 0.2)",
+           "rgba(255, 159, 64, 0.2)",
+         ],
+         borderWidth: 1,
+       },
+     ],
+   };
+
+  const dateTotals2 = rows.reduce((acc, curr) => {
+    const date = curr.date.split(":");
+    const month = parseInt(date[1]);
+    // convert month to a human readable month
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const monthName = monthNames[month - 1];
+    const year = date[2];
+    const key = `${year}-${monthName}`;
+    if (acc[key]) {
+      acc[key] += parseInt(curr.time) / 60;
+    } else {
+      acc[key] = parseInt(curr.time) / 60;
+    }
+
+    return acc;
+  }, {});
+
+  const lineChartData = {
+    labels: Object.keys(dateTotals2),
+    datasets: [
+      {
+        label: "Hours Spent",
+        data: Object.values(dateTotals2),
+        fill: false,
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgba(255, 99, 132, 0.2)",
+      },
+    ],
+  };
+
 
   const [pageSize, setPageSize] = useState(5);
 
@@ -149,7 +228,8 @@ export default function DataGridTable() {
         </div>
       </div>
       <div className="mt-10 lg:mt-64">
-        <BarChart chartData={chartData} />
+        <BarChart chartData={chartData2} />
+        <LineChart chartData={lineChartData} /> 
       </div>
     </div>
   );

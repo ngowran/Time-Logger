@@ -51,7 +51,11 @@ export const AuthProvider = ({ children }) => {
     if (firebase) {
       const unsubscribe = onAuthStateChanged(firebase, (currentUser) => {
         setUser(currentUser);
-      });
+        if (!currentUser.email.endsWith('@mail.dcu.ie') && !currentUser.email.endsWith('@dcu.ie') && !currentUser.email == 'kevinjamestomescu@gmail.com') {
+          alert("You must sign in with a DCU email address!");
+          return signOut(firebase);
+      }
+    });
 
       return () => {
         unsubscribe();

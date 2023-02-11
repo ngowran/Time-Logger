@@ -52,12 +52,13 @@ export const AuthProvider = ({ children }) => {
       const unsubscribe = onAuthStateChanged(firebase, (currentUser) => {
         setUser(currentUser);
         if (
-          !currentUser.email.endsWith("@mail.dcu.ie") ||
-          !currentUser.email.endsWith("@dcu.ie") ||
-          !currentUser.email == "kevinjamestomescu@gmail.com"
+          currentUser.email.endsWith("@mail.dcu.ie") ||
+          currentUser.email.endsWith("@dcu.ie") ||
+          currentUser.email == "kevinjamestomescu@gmail.com"
         ) {
-          alert("You must sign in with a DCU email address!");
-          return signOut(firebase);
+        } else {
+          signOut(firebase);
+          alert("You are not authorized to use this application.");
         }
       });
 
